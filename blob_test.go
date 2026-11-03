@@ -88,3 +88,17 @@ func TestTerminalDrawsEyesInsideHead(t *testing.T) {
 		t.Fatalf("head %d eye %d pixels", head, eye)
 	}
 }
+
+func TestRoundBlobRastersSymmetric(t *testing.T) {
+	img := New("alain", Options{Traits: map[string]float64{"shape": 0.11}}).Pixels(16)
+	for y := range img.Height {
+		for x := range img.Width {
+			if img.At(x, y).Filled != img.At(img.Width-1-x, y).Filled {
+				t.Fatalf("row %d is not mirror symmetric at column %d", y, x)
+			}
+		}
+	}
+	if img.Width != img.Height {
+		t.Fatalf("round blob is %dx%d", img.Width, img.Height)
+	}
+}

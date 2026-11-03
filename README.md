@@ -44,7 +44,7 @@ fmt.Println(b.Terminal(24))
 svg := b.SVG()
 ```
 
-`Terminal(size)` rasterizes the blob onto a `size`×`size` grid, crops the margin, and prints two pixels per cell with half blocks and 24-bit colour. `Pixels(size)` returns the grid itself.
+`Terminal(size)` rasterizes the blob so its wider side spans `size` pixels, on a grid centred on the blob itself so round shapes stay symmetric, and prints two pixels per cell with half blocks and 24-bit colour. `Pixels(size)` returns the grid itself.
 
 Try it:
 
