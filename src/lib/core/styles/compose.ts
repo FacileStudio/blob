@@ -11,41 +11,36 @@ export type Fit = (t: Traits, b: Body, face: Ellipse) => Eye[];
 
 export const faceFit: Fit = (t, b, face) => {
   const rx = b.rx;
-  const er0 = t.num("eye.rx", 0.075, 0.105) * rx;
-  const ratio = t.num("eye.ratio", 1.9, 3.2);
-  const scale = t.num("eye.scale", 0.78, 1.24);
-  const stretch = t.num("eye.stretch", 0.85, 1.18);
-  const clearance = t.num("eye.gap", 0.1, 0.24) * rx;
+  const er0 = t.num("eye.rx", 0.1, 0.14) * rx;
+  const ratio = t.num("eye.ratio", 1.0, 1.25);
+  const scale = t.num("eye.scale", 0.92, 1.08);
+  const clearance = t.num("eye.gap", 0.1, 0.22) * rx;
   const wide = er0 * Math.max(1, scale);
-  const tall = er0 * ratio * Math.max(1, scale * stretch);
-  const gap0 = wide + rx * 0.03 + clearance;
+  const tall = er0 * ratio * Math.max(1, scale);
+  const gap0 = wide + rx * 0.04 + clearance;
 
-  const gx = t.jitter("gaze.x", 0.09) * face.rx;
-  const gy = t.num("gaze.y", -0.2, 0.08) * face.ry;
-  const dy = t.jitter("eye.dy", 0.04) * face.ry;
+  const gx = t.jitter("gaze.x", 0.08) * face.rx;
+  const gy = t.num("gaze.y", -0.15, 0.05) * face.ry;
+  const dy = t.jitter("eye.dy", 0.02) * face.ry;
   const reach = Math.hypot(wide, tall);
   const need = Math.hypot(
     (Math.abs(gx) + gap0 + reach) / face.rx,
     (Math.abs(gy) + Math.abs(dy) + reach) / face.ry,
   );
-  const fit = need > 0.9 ? 0.9 / need : 1;
+  const fit = need > 0.88 ? 0.88 / need : 1;
 
   const er = er0 * fit;
   const eyeRy = er * ratio;
   const gap = gap0 * fit;
-  const room = Math.max(0, Math.min(1, clearance / tall));
-  const bound = Math.min(12, (Math.asin(room) * 180) / Math.PI);
-  const lean = t.num("eye.lean", -1, 1) * bound;
-  const lean2 = Math.max(-12, Math.min(12, lean + t.jitter("eye.lean2", 3.5)));
 
   const cx = face.cx + gx * fit;
   const cy = face.cy + gy * fit;
   return [
-    { cx: cx - gap, cy, rx: er, ry: eyeRy, n: t.num("eye.n", 3.5, 6), rot: lean },
+    { cx: cx - gap, cy, rx: er, ry: eyeRy, n: 2, rot: 0 },
     {
       cx: cx + gap, cy: cy + dy * fit,
-      rx: er * scale, ry: eyeRy * scale * stretch,
-      n: t.num("eye.n", 3.5, 6), rot: lean2,
+      rx: er * scale, ry: eyeRy * scale,
+      n: 2, rot: 0,
     },
   ];
 };

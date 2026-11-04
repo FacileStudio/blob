@@ -165,41 +165,35 @@ func build(t traits) layout {
 
 func faceFit(t traits, b body, face ellipse) []eye {
 	rx := b.rx
-	er0 := t.num("eye.rx", 0.075, 0.105) * rx
-	ratio := t.num("eye.ratio", 1.9, 3.2)
-	scale := t.num("eye.scale", 0.78, 1.24)
-	stretch := t.num("eye.stretch", 0.85, 1.18)
-	clearance := t.num("eye.gap", 0.1, 0.24) * rx
+	er0 := t.num("eye.rx", 0.1, 0.14) * rx
+	ratio := t.num("eye.ratio", 1.0, 1.25)
+	scale := t.num("eye.scale", 0.92, 1.08)
+	clearance := t.num("eye.gap", 0.1, 0.22) * rx
 	wide := er0 * math.Max(1, scale)
-	tall := er0 * ratio * math.Max(1, scale*stretch)
-	gap0 := wide + rx*0.03 + clearance
+	tall := er0 * ratio * math.Max(1, scale)
+	gap0 := wide + rx*0.04 + clearance
 
-	gx := t.jitter("gaze.x", 0.09) * face.rx
-	gy := t.num("gaze.y", -0.2, 0.08) * face.ry
-	dy := t.jitter("eye.dy", 0.04) * face.ry
+	gx := t.jitter("gaze.x", 0.08) * face.rx
+	gy := t.num("gaze.y", -0.15, 0.05) * face.ry
+	dy := t.jitter("eye.dy", 0.02) * face.ry
 	reach := math.Hypot(wide, tall)
 	need := math.Hypot(
 		(math.Abs(gx)+gap0+reach)/face.rx,
 		(math.Abs(gy)+math.Abs(dy)+reach)/face.ry,
 	)
 	fit := 1.0
-	if need > 0.9 {
-		fit = 0.9 / need
+	if need > 0.88 {
+		fit = 0.88 / need
 	}
 
 	er := er0 * fit
 	eyeRy := er * ratio
 	gap := gap0 * fit
-	room := math.Max(0, math.Min(1, clearance/tall))
-	bound := math.Min(12, (math.Asin(room)*180)/math.Pi)
-	lean := t.num("eye.lean", -1, 1) * bound
-	lean2 := math.Max(-12, math.Min(12, lean+t.jitter("eye.lean2", 3.5)))
 
 	cx := face.cx + gx*fit
 	cy := face.cy + gy*fit
-	n := t.num("eye.n", 3.5, 6)
 	return []eye{
-		{cx - gap, cy, er, eyeRy, n, lean},
-		{cx + gap, cy + dy*fit, er * scale, eyeRy * scale * stretch, n, lean2},
+		{cx - gap, cy, er, eyeRy, 2, 0},
+		{cx + gap, cy + dy*fit, er * scale, eyeRy * scale, 2, 0},
 	}
 }
