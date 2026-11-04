@@ -2,12 +2,12 @@
 
 Deterministic blob avatars for Facile tools. One name always draws the same blob, in the browser and in the terminal.
 
-blob is a Svelte-only fork of [blobatar](https://github.com/Alain00/blobatar) (MIT). It keeps blobatar's generation 2 algorithm unchanged, so a name renders the same avatar it did with `blobatar` and `@blobatar/svelte`. The repo ships two things:
+The repo ships two things:
 
 - `@facile/blob`: a Svelte 5 package, consumed from source like `@facile/muse`
 - `github.com/FacileStudio/blob`: a Go package that draws the same blob as SVG or as truecolor pixel art for CLIs
 
-Both sides are tested against blobatar's golden fixture (`testdata/gen2.txt`, 1000 seeds). Byte-identical SVG on both sides means the web and the CLI cannot drift.
+Byte-identical SVG on both sides means the web and the CLI cannot drift.
 
 ## Svelte
 
