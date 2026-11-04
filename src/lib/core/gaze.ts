@@ -1,7 +1,7 @@
 
 export const SETTLE = 110;
 
-export const SNAP = 1.6;
+export const SNAP = Infinity;
 
 export const DEADZONE = 0.55;
 
@@ -287,11 +287,14 @@ export function gaze(el: SVGSVGElement, opts: GazeOptions = {}): Gaze {
     }
 
     const k = pursuit(dt, settle);
-        const s = step({
+    const hasPointer = px > -1e5 && py > -1e5;
+    const targetX = at ? at.x : (hasPointer ? px : cx);
+    const targetY = at ? at.y : (hasPointer ? py : cy);
+    const s = step({
       x,
       y,
-      dx: resting ? 0 : (at ? at.x : px) - cx,
-      dy: resting ? 0 : (at ? at.y : py) - cy,
+      dx: resting ? 0 : targetX - cx,
+      dy: resting ? 0 : targetY - cy,
       radius,
       k,
       snap,

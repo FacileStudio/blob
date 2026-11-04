@@ -2,6 +2,8 @@
 
 Deterministic blob avatars for Facile tools. One name always draws the same blob, in the browser and in the terminal.
 
+![blob avatars](assets/hero.png)
+
 The repo ships two things:
 
 - `@facile/blob`: a Svelte 5 package, consumed from source like `@facile/muse`
@@ -12,7 +14,7 @@ Byte-identical SVG on both sides means the web and the CLI cannot drift.
 ## Svelte
 
 ```sh
-bun add github:FacileStudio/blob#v0.1.0
+bun add github:FacileStudio/blob#v0.2.1
 ```
 
 ```svelte
@@ -35,7 +37,7 @@ Other exports: `blob(name, opts)` returns SVG markup, `blobUri` returns a data U
 ## Go
 
 ```sh
-go get github.com/FacileStudio/blob
+go get github.com/FacileStudio/blob@v0.2.1
 ```
 
 ```go
@@ -43,6 +45,8 @@ b := blob.New("Bulle", blob.Options{})
 fmt.Println(b.Terminal(24))
 svg := b.SVG()
 ```
+
+![Terminal pixel art](assets/terminal.png)
 
 `Terminal(size)` rasterizes the blob so its wider side spans `size` pixels, on a grid centred on the blob itself so round shapes stay symmetric, and prints two pixels per cell with half blocks and 24-bit colour. `Pixels(size)` returns the grid itself.
 

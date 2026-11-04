@@ -1,6 +1,6 @@
 {
   "name": "@facile/blob",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Deterministic blob avatars for Svelte 5, with a Go terminal renderer",
   "type": "module",
   "svelte": "./src/lib/index.ts",
