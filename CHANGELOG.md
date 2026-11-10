@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Changed
+
+- README: a License section names the MIT licence. The licence itself is unchanged.
+
 ## [0.2.1] - 2026-11-04
 
 ### Added

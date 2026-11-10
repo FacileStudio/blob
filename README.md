@@ -67,3 +67,7 @@ That runs `svelte-check`, the Bun golden test, `go vet` and the Go golden test.
 ## Release
 
 The git tag is the distribution for both ecosystems: Bun pins `github:FacileStudio/blob#vX.Y.Z` and Go resolves the same `vX.Y.Z` tag.
+
+## License
+
+blob is licensed under the [MIT License](LICENSE).
