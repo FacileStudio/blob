@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-11
+
+### Security
+
+- build: Go 1.26.11 (`go` directive, from `go 1.25`, and the mise pin). It fixes GO-2026-6848 to GO-2026-6859 and the older standard library advisories a `go 1.25` directive carried, which failed douane.
+- build(deps): `golang.org/x/text` v0.30.0 to v0.41.0 (GO-2026-5970, GO-2026-6629).
+
 ### Changed
 
 - README: a License section names the MIT licence. The licence itself is unchanged.
